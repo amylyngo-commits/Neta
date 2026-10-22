@@ -1,0 +1,4 @@
+<?php
+namespace App\Controllers;
+use App\Core\Controller; use App\Models\Payment;
+class PaymentController extends Controller { public function index(): void {$m=new Payment();$this->render('payments/index',['payments'=>$m->all(),'reservations'=>$m->reservations()]);} public function save(): void {\csrf_check();try{(new Payment())->save(['reservation_id'=>(int)($_POST['reservation_id']??0),'amount'=>(float)($_POST['amount']??0),'payment_date'=>$_POST['payment_date']??date('Y-m-d'),'method'=>$_POST['method']??'Transferencia','reference'=>trim($_POST['reference']??''),'notes'=>trim($_POST['notes']??'')]);\flash('success','Pago registrado correctamente.');}catch(\Throwable $e){\flash('error',$e instanceof \RuntimeException?$e->getMessage():'No se pudo registrar el pago.');}\redirect('payments');} }

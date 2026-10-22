@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('form').forEach(form=>{form.addEventListener('submit',()=>{const btn=form.querySelector('button[type="submit"],button:not([type])');if(btn&&!form.querySelector('[name="q"]')){btn.dataset.original=btn.innerHTML;btn.disabled=true;btn.innerHTML='Procesando…';}})});});
